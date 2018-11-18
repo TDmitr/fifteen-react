@@ -15,8 +15,8 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', this.handleKeyUp);
         this.shuffle();
+        document.addEventListener('keydown', this.handleKeyUp);
     }
 
     componentWillUnmount() {
@@ -94,7 +94,7 @@ export default class Game extends Component {
     }
 
     shuffle = () => {
-        const numbers = this.state.numbers.slice(e => e !== null).sort(() => Math.random() - 0.5);
+        const numbers = this.state.numbers.filter(e => e !== null).sort(() => Math.random() - 0.5);
         this.setState({
             numbers: [...numbers, null],
             currEmptyIndex: 15,
