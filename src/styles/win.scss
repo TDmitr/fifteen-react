@@ -1,0 +1,55 @@
+.win {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(white, 0.7);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity .3s ease-out;
+  @include center-content;
+
+  &--show {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  &__modal {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,.3);
+    border-radius: 10px;
+    padding: 50px 20px;
+    text-align: center;
+
+    h1 {
+      font-size: 30px;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    button {
+      background: $orange;
+      color: white;
+      font-size: 20px;
+      width: 100%;
+      padding: 12px 10px;
+      text-align: center;
+      font-weight: 700;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      outline: none;
+      margin-top: 30px;
+      &:hover {
+        background: lighten($orange, 5%);
+      }
+    }
+  }
+}
