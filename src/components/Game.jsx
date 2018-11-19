@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Component } from 'react';
+import React, { Component } from 'react';
 import * as logo from '../../assets/img/logo.svg';
 import Board from "./Board";
 import WinPopup from "./WinPopup";
@@ -8,14 +7,15 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            numbers: [...new Array(16).keys()].slice(1),
+            numbers: [...[...new Array(16).keys()].slice(1), null],
             currEmptyIndex: 15,
             isWin: false
         };
+        this.shuffle = this.shuffle.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     componentDidMount() {
-        this.shuffle();
         document.addEventListener('keydown', this.handleKeyUp);
     }
 
@@ -23,7 +23,7 @@ export default class Game extends Component {
         document.removeEventListener('keydown', this.handleKeyUp);
     }
 
-    handleKeyUp = key => {
+    handleKeyUp(key) {
         switch (key.keyCode) {
             case 37:
                 this.moveLeft();
@@ -72,16 +72,12 @@ export default class Game extends Component {
             this.setState({
                 numbers: numbersCopy,
                 currEmptyIndex: newIndex,
-            });
-
-            this.setState({
-                isWin: this.checkWin()
+                isWin: this.checkWin(numbersCopy, newIndex)
             });
         }
     }
 
-    checkWin() {
-        const {numbers, currEmptyIndex} = this.state;
+    checkWin(numbers, currEmptyIndex) {
         let numbersCopy = numbers.slice(0);
         numbersCopy[currEmptyIndex] = 16;
 
@@ -93,7 +89,7 @@ export default class Game extends Component {
         }, {isSorted: true, elem: 0}).isSorted;
     }
 
-    shuffle = () => {
+    shuffle() {
         const numbers = this.state.numbers.filter(e => e !== null).sort(() => Math.random() - 0.5);
         this.setState({
             numbers: [...numbers, null],

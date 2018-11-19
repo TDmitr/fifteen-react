@@ -36,6 +36,11 @@
     }
     &--scale {
       animation: scale-up 0.5s 1;
+      @for $i from 1 through 16 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.05s;
+        }
+      }
     }
   }
 
@@ -63,11 +68,6 @@
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
     &:hover {
       background-color: lighten($purple, 5%);
-    }
-
-    &-2 {
-      left: 50px;
-      right: initial;
     }
   }
 }

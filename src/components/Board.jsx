@@ -1,13 +1,11 @@
-import * as React from "react";
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Cell from "./Cell";
+import shortid from 'shortid'
 
-export default class Board extends Component {
-    render() {
-        return (
-           <div className="board__field">
-               {this.props.numbers.map((e, i) => <Cell value={e} key={i} id={i} isWin={this.props.isWin}/>)}
-           </div>
-        );
-    }
+export default function Board(props) {
+    return (
+       <div className="board__field">
+           {props.numbers.map(e => <Cell value={e} key={shortid.generate()} isWin={props.isWin}/>)}
+       </div>
+    );
 }
